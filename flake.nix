@@ -10,7 +10,7 @@
   };
 
   outputs =
-    { self }:
+    { self, ... }:
     {
       homeModules.default =
         { config, pkgs, ... }:
