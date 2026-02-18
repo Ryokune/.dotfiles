@@ -1,0 +1,70 @@
+# Created by newuser for 5.9
+
+# The following lines were added by compinstall
+
+zstyle ':completion:*' file-sort access
+zstyle ':completion:*' squeeze-slashes true
+zstyle :compinstall filename '/home/fish/.zshrc'
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=500
+unsetopt beep
+bindkey -v
+# End of lines configured by zsh-newuser-install
+
+neofetch || fastfetch
+
+# AUTOLOADS
+#autoload -Uz colors && colors
+
+# ALIASES
+alias cat='bat'
+alias cls='clear'
+alias cp='cp -i'
+alias clear='clear; source ~/.zshrc'
+alias eri='nvim ~/.config/niri/config.kdl'
+alias ls='ls -g --group-directories-first --color=auto'
+
+# OPTS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_FIND_NO_DUPS
+setopt extended_glob
+setopt autocd
+
+# EXPORTS
+EDITOR=nvim
+ZSH_DIRS=(/usr/share/zsh $HOME/.zsh)
+
+# FUNCTIONS
+loadplugin() {
+  local name="$1"
+  local pattern
+  local match
+
+  for dir in "${ZSH_DIRS[@]}"; do
+    pattern="${dir}/plugins/**/${name}.plugin.zsh"
+    # Use recursive globbing with glob qualifiers
+    for match in ${~pattern}(N); do
+      if [[ -f "$match" ]]; then
+        source "$match"
+        return 0
+      fi
+    done
+  done
+
+  echo "Plugin '${name}.plugin.zsh' not found in any plugins/ directory." >&2
+  return 1
+}
+
+# PLUGINS
+loadplugin zsh-autosuggestions
+loadplugin zsh-syntax-highlighting
+#fpath=($ZSH/plugins/zsh-completions/src $fpath)
+# PROMPT
+PROMPT='%F{green}[%n@%m]%f:'$'\n''%F{blue}%~%f %# '
+#export PATH="$HOME/.local/bin:$PATH"
