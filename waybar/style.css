@@ -1,0 +1,244 @@
+/* === Global Styles === */
+* {
+    color: #deeeee;
+    font-family: Maple Mono CN, Symbols Nerd Font, Roboto, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+}
+
+window#waybar {
+    background-color: transparent;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+button {
+    box-shadow: inset 0 -3px transparent;
+    border: none
+}
+
+button:hover {
+    background: inherit;
+    box-shadow: inset 0 -3px #ffffff;
+}
+
+
+/* === General Pill Module Style === */
+#clock,
+#battery,
+#cpu,
+#memory,
+#temperature,
+#backlight,
+#custom-nm-conn,
+#network,
+#pulseaudio,
+#custom-media, /* Ensure custom-media is in your config */
+#tray,
+#idle_inhibitor,
+#mpd,
+#bluetooth,
+#keyboard-state,
+#workspaces,
+#window,      /* Corrected selector */
+#language,    /* Corrected selector */
+#custom-power      /* Corrected selector */
+{
+    background-color: rgba(30, 30, 40, 0.64); /* Semi-transparent dark background */
+
+    border-radius: 18px; /* Rounded corners for pill shape */
+    padding: 2px 12px 4px 12px;
+}
+
+
+#custom-power {
+    padding: 4px 6px 4px 12px;
+}
+
+/* idk why they arent centered ffs */
+#clock,
+#window,
+#language
+{
+    /*padding: 4px 12px 2px 12px;*/
+}
+
+#idle_inhibitor,
+#tray,
+#workspaces
+{
+    /*padding: 2px 12px 4px 12px;*/
+}
+
+/* If workspaces is the leftmost module, omit left margin */
+.modules-left > widget:first-child > #workspaces {
+    margin-left: 0;
+}
+
+/* If workspaces is the rightmost module, omit right margin */
+.modules-right > widget:last-child > #workspaces {
+    margin-right: 0;
+}
+
+/* Hover effect for all pill modules */
+#clock:hover,
+#battery:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#backlight:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-media:hover,
+#tray:hover,
+#idle_inhibitor:hover,
+#mpd:hover,
+#bluetooth:hover,
+#keyboard-state:hover,
+#window:hover,    /* Corrected selector */
+#language:hover,  /* Corrected selector */
+#custom-power:hover    /* Corrected selector */
+{
+    background-color: rgba(35, 35, 45, 0.7); /* Slightly lighter on hover */
+    /* Alternative: Change border color on hover */
+    /* border: 1px solid #007bff; */
+}
+
+/* === Workspace Indicators (niri/workspaces) === */
+/* Current style is for CIRCULAR INDICATORS as previously discussed */
+/* Waiting for clarification if you want this changed */
+
+window#waybar.empty #window{
+    background-color: transparent;
+}
+
+#workspaces button.empty {
+    background-color: transparent;
+}
+
+
+#workspaces button {
+    border: none; /* No border for the circles themselves unless specified */
+    padding: 0;       /* Remove default button padding */
+    margin: 0 2px;    /* Spacing between circles */
+    border-radius: 90px;
+    transition: background-color 0.3s ease;
+}
+
+#workspaces button:hover {
+    box-shadow: none;
+}
+
+
+#workspaces button.urgent {
+    background-color: #f53c3c; /* Red for urgent workspace */
+}
+
+/* === Module State Styling === */
+
+/* --- Battery --- */
+#battery.warning {
+    color: #FFD700; /* Yellow */
+}
+
+#battery.critical:not(.charging) {
+    color: #f53c3c; /* Red */
+}
+
+#battery.charging .fa-bolt,
+#battery.plugged .fa-plug,
+#battery.charging,
+#battery.plugged {
+    color: #26A65B; /* Green for charging/plugged text/icons */
+}
+
+/* --- Network --- */
+
+#network.linked {
+    color: #FFD700; /* Yellow/Gold */
+}
+#network.disconnected {
+    color: #f53c3c; /* Red */
+}
+#network.disabled {
+    background-color: rgba(100, 100, 100, 0.7); /* This will override the pill background */
+    color: #9e9e9e;
+}
+/* If network.disabled should only change text/icon color within the standard pill: */
+/*
+#network.disabled {
+    color: rgba(255,255,255,0.5);
+}
+#network.disabled .fa-wifi-slash { // Example if using specific icon
+    color: rgba(255,255,255,0.5);
+}
+*/
+
+#network format-wifi .fa-wifi,
+#network format-ethernet .fa-network-wired {
+    /* color: #007bff; */
+}
+
+/* --- PulseAudio --- */
+#pulseaudio.muted {
+    color: rgba(255, 255, 255, 0.6); /* Dimmer white */
+}
+#pulseaudio .fa-volume-up,
+#pulseaudio .fa-volume-down,
+#pulseaudio .fa-volume-off {
+    /* color: #007bff; */
+}
+
+/* --- Temperature --- */
+#temperature.critical {
+    color: #f53c3c; /* Red */
+}
+
+/* --- Idle Inhibitor --- */
+#idle_inhibitor.activated {
+    color: #007bff; /* Electric blue */
+}
+#idle_inhibitor.activated .fa-eye {
+    /* color: #007bff; */
+}
+#idle_inhibitor.deactivated .fa-eye-slash {
+    /* color: rgba(255, 255, 255, 0.6); */
+}
+
+/* --- Bluetooth --- */
+#bluetooth.connected,
+#bluetooth.discoverable,
+#bluetooth.discovering {
+    color: #007bff; /* Electric blue text/icon when connected or active */
+}
+#bluetooth.off,
+#bluetooth.disabled {
+    color: rgba(255, 255, 255, 0.6); /* Dimmer white when off */
+}
+
+/* === Keyboard State === */
+#keyboard-state label.locked {
+    color: #007bff; /* Make "locked" indicator text/icon blue */
+}
+
+#keyboard-state > label {
+    padding: 0 5px;
+}
+
+/* === Tray Icons === */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b; /* This will override the pill background for the specific icon that needs attention. */
+}
+
+#custom-nm-conn.online { color: #26A65B; }      /* green */
+#custom-nm-conn.limited { color: #FFD700; }    /* orange */
+#custom-nm-conn.portal { color: #ff5722; }     /* red/orange */
+#custom-nm-conn.offline { color: #f53c3c; }    /* red */
+#custom-nm-conn.unknown { color: #9e9e9e; }    /* gray */
