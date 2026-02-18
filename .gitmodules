@@ -1,0 +1,6 @@
+[submodule "nix/nixos"]
+	path = nix/nixos
+	url = git@github.com:Ryokune/nixos.git
+[submodule "nix/home-manager"]
+	path = nix/home-manager
+	url = git@github.com:Ryokune/home-manager.git
