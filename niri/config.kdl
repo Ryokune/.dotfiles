@@ -5,10 +5,6 @@
     render-drm-device "/dev/dri/renderD128" 
 }
 
-cursor {
-    xcursor-theme "Adwaita"
-}
-
 /-debug {
   honor-xdg-activation-with-invalid-serial
 }
